@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Save, Settings } from 'lucide-react';
+import { ThemeSwitcher } from '@/components/common/navbar';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -35,7 +36,7 @@ export function Navbar() {
             <SheetDescription>Configure your PX to REM converter preferences</SheetDescription>
           </SheetHeader>
           <div className="space-y-5 overflow-y-auto px-4" role="form">
-            {/* Settings content will go here */}
+            <ThemeSwitcher />
           </div>
           <SheetFooter>
             <Button className="cursor-pointer" size="lg" onClick={handleSettingsSave} aria-label="Save settings">
