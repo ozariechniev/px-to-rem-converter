@@ -35,6 +35,7 @@ export function BaseFontSizeSwitcher({ unsavedBaseFontSize, setUnsavedBaseFontSi
           type="number"
           value={unsavedBaseFontSize}
           onChange={(e) => setUnsavedBaseFontSize(Number(e.target.value))}
+          min={1}
         />
       </div>
     </div>

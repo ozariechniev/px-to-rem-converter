@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { Save, Settings } from 'lucide-react';
-import { ThemeSwitcher } from '@/components/common/navbar';
+import { toast } from 'sonner';
+import { BaseFontSizeSwitcher, ThemeSwitcher } from '@/components/common/navbar';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -13,12 +14,32 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { useSettings } from '@/hooks/use-settings';
 
 export function Navbar() {
+  const { baseFontSize, setBaseFontSize } = useSettings();
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
+  const [unsavedBaseFontSize, setUnsavedBaseFontSize] = useState<number>(baseFontSize);
 
   const handleSettingsSave = () => {
-    setIsSheetOpen(false);
+    if (baseFontSize === unsavedBaseFontSize) {
+      setIsSheetOpen(false);
+      return;
+    }
+
+    if (!isNaN(unsavedBaseFontSize) && unsavedBaseFontSize > 0) {
+      setBaseFontSize(unsavedBaseFontSize);
+      toast.success('Settings updated', {
+        description: `Base font size set to ${unsavedBaseFontSize}px`,
+        duration: 2000,
+      });
+      setIsSheetOpen(false);
+    } else {
+      toast.error('Invalid base font size', {
+        description: 'Please enter a valid number greater than 0',
+        duration: 2000,
+      });
+    }
   };
 
   return (
@@ -37,6 +58,10 @@ export function Navbar() {
           </SheetHeader>
           <div className="space-y-5 overflow-y-auto px-4" role="form">
             <ThemeSwitcher />
+            <BaseFontSizeSwitcher
+              unsavedBaseFontSize={unsavedBaseFontSize}
+              setUnsavedBaseFontSize={setUnsavedBaseFontSize}
+            />
           </div>
           <SheetFooter>
             <Button className="cursor-pointer" size="lg" onClick={handleSettingsSave} aria-label="Save settings">
