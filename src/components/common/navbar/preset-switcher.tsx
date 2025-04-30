@@ -65,6 +65,12 @@ export function PresetSwitcher({ setUnsavedPresets, unsavedPresets }: PresetSwit
             type="number"
             value={newPreset}
             onChange={(e) => setNewPreset(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleAddPreset();
+              }
+            }}
             placeholder="Add preset..."
           />
           <Button variant="outline" onClick={handleAddPreset}>
