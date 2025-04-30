@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PX to REM Converter
 
-## Getting Started
+<div align="center">
 
-First, run the development server:
+A modern, accessible web tool for converting pixel values to REM units with real-time preview and customizable base font size.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[Demo](https://px-to-rem-converter-dun.vercel.app/) · [Report Bug](https://github.com/ozariechniev/px-to-rem-converter/issues) · [Request Feature](https://github.com/ozariechniev/px-to-rem-converter/issues)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+</div>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 🔄 Real-time PX to REM conversion
+- 🎨 Dark/Light mode support
+- 📱 Fully responsive design
+- ⚡️ Instant calculations
+- 💾 URL-based state persistence
+- 🎯 Customizable base font size
+- 📋 One-click copy to clipboard
 
-## Learn More
+## 🛠️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework:** [Next.js](https://nextjs.org/)
+- **State Management:** [nuqs](https://nuqs.47ng.com/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components:** [shadcn/ui](https://ui.shadcn.com/)
+- **Icons:** [Lucide](https://lucide.dev/)
+- **Deployment:** [Vercel](https://vercel.com/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+🤝 Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Contributions are welcome! Feel free to open issues or pull requests.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+📝 License
+This project is licensed under the MIT License. See the LICENSE file for details.
