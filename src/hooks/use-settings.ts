@@ -24,6 +24,13 @@ export const presetsParser = createParser({
   serialize: (value) => JSON.stringify(value),
 });
 
+export const activeTabParser = createParser({
+  parse: (value) => {
+    return value === 'converter' || value === 'presets' ? value : 'converter';
+  },
+  serialize: (value) => value,
+});
+
 export function useSettings() {
   const [baseFontSize, setBaseFontSize] = useQueryState(
     'baseFontSize',
@@ -32,10 +39,14 @@ export function useSettings() {
 
   const [presets, setPresets] = useQueryState('presets', presetsParser.withDefault([]));
 
+  const [activeTab, setActiveTab] = useQueryState('tab', activeTabParser.withDefault('converter'));
+
   return {
     baseFontSize,
     setBaseFontSize,
     presets,
     setPresets,
+    activeTab,
+    setActiveTab,
   };
 }

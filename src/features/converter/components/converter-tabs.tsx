@@ -9,8 +9,7 @@ import { ConverterCard } from './converter-card';
 import { PresetsCard } from './presets-card';
 
 export function ConverterTabs() {
-  const { baseFontSize, presets } = useSettings();
-  const [activeTab, setActiveTab] = useState<string>('converter');
+  const { baseFontSize, presets, activeTab, setActiveTab } = useSettings();
   const [pxValue, setPxValue] = useState('');
   const [remValue, setRemValue] = useState('');
 
@@ -31,7 +30,12 @@ export function ConverterTabs() {
   };
 
   return (
-    <Tabs defaultValue="converter" value={activeTab} onValueChange={setActiveTab} className="w-full">
+    <Tabs
+      defaultValue="converter"
+      value={activeTab}
+      onValueChange={(value) => setActiveTab(value as 'converter' | 'presets')}
+      className="w-full"
+    >
       <div className="mb-6 flex flex-col items-center">
         <TabsList className="grid w-full max-w-md grid-cols-2">
           <TabsTrigger value="converter">Converter</TabsTrigger>
