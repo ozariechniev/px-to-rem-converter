@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { validateConverterInputValue } from '@/lib/validator';
+import { validatePreset } from '@/lib/validator';
 
 type PresetSwitcherProps = {
   setUnsavedPresets: (presets: number[]) => void;
@@ -18,11 +18,11 @@ export function PresetSwitcher({ setUnsavedPresets, unsavedPresets }: PresetSwit
   const [newPreset, setNewPreset] = useState<string>('');
 
   const handleAddPreset = () => {
-    const validatedPreset = validateConverterInputValue(newPreset);
+    const validatedPreset = validatePreset(newPreset);
 
     if (!validatedPreset) {
       toast.error('Invalid preset value', {
-        description: 'Please enter a valid number',
+        description: 'Please ensure all preset values are valid numbers greater than 0',
         duration: 2000,
       });
       return;
@@ -30,7 +30,7 @@ export function PresetSwitcher({ setUnsavedPresets, unsavedPresets }: PresetSwit
 
     if (unsavedPresets.includes(validatedPreset)) {
       toast.error('Preset already exists', {
-        description: 'Please enter a different number',
+        description: 'Please ensure all preset values are unique',
         duration: 2000,
       });
       return;
