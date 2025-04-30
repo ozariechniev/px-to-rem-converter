@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/sheet';
 import { useSettings } from '@/hooks/use-settings';
 import { DEFAULT_BASE_FONT_SIZE_MAX, DEFAULT_BASE_FONT_SIZE_MIN } from '@/lib/constants';
-import { validateBaseFontSize } from '@/lib/validator';
+import { validateBaseFontSize, validatePresets } from '@/lib/validator';
 
 export function Navbar() {
   const { baseFontSize, setBaseFontSize, presets, setPresets } = useSettings();
@@ -26,18 +26,26 @@ export function Navbar() {
 
   const handleSettingsSave = () => {
     const validatedBaseFontSize = validateBaseFontSize(unsavedBaseFontSize.toString());
+    const validatedPresets = validatePresets(unsavedPresets);
 
     if (!validatedBaseFontSize) {
       toast.error('Invalid base font size', {
         description: `Please enter a valid number greater than ${DEFAULT_BASE_FONT_SIZE_MIN}px and less than ${DEFAULT_BASE_FONT_SIZE_MAX}px`,
         duration: 2000,
       });
+      return;
+    }
 
+    if (!validatedPresets) {
+      toast.error('Invalid presets', {
+        description: 'Please ensure all preset values are valid numbers greater than 0',
+        duration: 2000,
+      });
       return;
     }
 
     const hasBaseFontSizeChanged = validatedBaseFontSize !== baseFontSize;
-    const hasPresetsChanged = JSON.stringify(unsavedPresets) !== JSON.stringify(presets);
+    const hasPresetsChanged = JSON.stringify(validatedPresets) !== JSON.stringify(presets);
 
     if (!hasBaseFontSizeChanged && !hasPresetsChanged) {
       setIsSheetOpen(false);
@@ -49,7 +57,7 @@ export function Navbar() {
     }
 
     if (hasPresetsChanged) {
-      setPresets(unsavedPresets);
+      setPresets(validatedPresets);
     }
 
     setIsSheetOpen(false);

@@ -15,3 +15,19 @@ export function validateConverterInputValue(value: string): number | null {
 
   return parsed;
 }
+
+export function validatePreset(preset: string): number | null {
+  const parsed = parseInt(preset);
+
+  if (!Number.isFinite(parsed) || parsed <= 0) return null;
+
+  return parsed;
+}
+
+export function validatePresets(presets: number[]): number[] | null {
+  if (presets.some((preset) => validatePreset(preset.toString()) === null)) {
+    return null;
+  }
+
+  return presets;
+}
