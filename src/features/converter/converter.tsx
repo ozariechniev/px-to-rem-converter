@@ -128,7 +128,7 @@ export function Converter() {
                       <TableRow>
                         <TableHead>PX</TableHead>
                         <TableHead>REM</TableHead>
-                        <TableHead className="w-[100px]">Actions</TableHead>
+                        <TableHead className="w-[100px]">Copy</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
