@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Hero } from '@/features/converter/hero';
 import { useSettings } from '@/hooks/use-settings';
@@ -13,7 +15,7 @@ import { copyToClipboard, pxToRem, remToPx } from '@/lib/utils';
 import { validateConverterInputValue } from '@/lib/validator';
 
 export function Converter() {
-  const { baseFontSize } = useSettings();
+  const { baseFontSize, presets } = useSettings();
   const [activeTab, setActiveTab] = useState<string>('converter');
   const [pxValue, setPxValue] = useState('');
   const [remValue, setRemValue] = useState('');
@@ -105,6 +107,54 @@ export function Converter() {
                   </div>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="presets" className="w-full">
+          <Card className="mx-auto max-w-2xl">
+            <CardHeader>
+              <CardTitle>
+                <span className="sr-only">Presets</span>
+              </CardTitle>
+              <CardDescription>
+                Your saved presets converted to rem units based on <b>{baseFontSize}px</b> base font size
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {presets.length > 0 ? (
+                <ScrollArea className="h-[300px] rounded-md border">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>PX</TableHead>
+                        <TableHead>REM</TableHead>
+                        <TableHead className="w-[100px]">Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {presets.map((preset) => {
+                        const remValue = pxToRem(preset, baseFontSize);
+                        return (
+                          <TableRow key={preset}>
+                            <TableCell>{preset}px</TableCell>
+                            <TableCell>{remValue}rem</TableCell>
+                            <TableCell>
+                              <Button variant="outline" size="icon" onClick={() => copyToClipboard(`${remValue}rem`)}>
+                                <Copy className="h-4 w-4" />
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </ScrollArea>
+              ) : (
+                <div className="flex flex-col items-center justify-center space-y-2 rounded-md border p-8 text-center">
+                  <p className="text-muted-foreground text-sm">No presets saved yet</p>
+                  <p className="text-muted-foreground text-xs">Add presets in the settings to see them here</p>
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
