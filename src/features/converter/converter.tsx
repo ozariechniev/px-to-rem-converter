@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,7 +9,8 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Hero } from '@/features/converter/hero';
 import { useSettings } from '@/hooks/use-settings';
-import { copyToClipboard, pxToRem } from '@/lib/utils';
+import { copyToClipboard, pxToRem, remToPx } from '@/lib/utils';
+import { validateConverterInputValue } from '@/lib/validator';
 
 export function Converter() {
   const { baseFontSize } = useSettings();
@@ -18,9 +19,28 @@ export function Converter() {
   const [remValue, setRemValue] = useState('');
 
   const handlePxChange = (value: string) => {
+    const validatedPxValue = validateConverterInputValue(value);
+    const result = value && validatedPxValue ? pxToRem(validatedPxValue, baseFontSize) : '';
+
     setPxValue(value);
-    setRemValue(pxToRem(Number.parseFloat(value), baseFontSize));
+    setRemValue(result);
   };
+
+  const handleRemChange = (value: string) => {
+    const validatedRemValue = validateConverterInputValue(value);
+    const result = value && validatedRemValue ? remToPx(validatedRemValue, baseFontSize) : '';
+
+    setRemValue(value);
+    setPxValue(result);
+  };
+
+  useEffect(() => {
+    if (pxValue) {
+      const validatedPxValue = validateConverterInputValue(pxValue);
+
+      if (validatedPxValue) setRemValue(pxToRem(validatedPxValue, baseFontSize));
+    }
+  }, [pxValue, baseFontSize]);
 
   return (
     <>
@@ -43,7 +63,7 @@ export function Converter() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid gap-6 md:grid-cols-2">
+              <div className="mb-3 grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="px-value">PX</Label>
                   <div className="flex gap-2">
@@ -67,7 +87,13 @@ export function Converter() {
                 <div className="space-y-2">
                   <Label htmlFor="rem-value">REM</Label>
                   <div className="flex gap-2">
-                    <Input id="rem-value" type="number" value={remValue} disabled />
+                    <Input
+                      id="rem-value"
+                      type="number"
+                      placeholder="Enter rem value"
+                      value={remValue}
+                      onChange={(e) => handleRemChange(e.target.value)}
+                    />
                     <Button
                       variant="outline"
                       size="icon"

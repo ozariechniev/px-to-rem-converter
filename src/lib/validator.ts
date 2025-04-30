@@ -7,3 +7,11 @@ export function validateBaseFontSize(value: string): number | null {
 
   return parsed;
 }
+
+export function validateConverterInputValue(value: string): number | null {
+  const parsed = parseFloat(value);
+
+  if (isNaN(parsed)) return null;
+
+  return parsed;
+}

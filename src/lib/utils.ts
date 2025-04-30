@@ -13,7 +13,9 @@ export function pxToRem(px: number, baseFontSize: number) {
 }
 
 export function remToPx(rem: number, baseFontSize: number) {
-  return parseFloat((rem * baseFontSize).toFixed(0));
+  const value = (rem * baseFontSize).toFixed(4);
+
+  return value.replace(/\.?0+$/, '');
 }
 
 export function copyToClipboard(value: string) {
