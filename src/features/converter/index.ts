@@ -1,2 +1,2 @@
 export * from '@/features/converter/converter';
-export * from '@/features/converter/hero';
+export * from '@/features/converter/components/hero';
