@@ -15,6 +15,8 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { useSettings } from '@/hooks/use-settings';
+import { DEFAULT_BASE_FONT_SIZE_MAX, DEFAULT_BASE_FONT_SIZE_MIN } from '@/lib/constants';
+import { validateBaseFontSize } from '@/lib/validator';
 
 export function Navbar() {
   const { baseFontSize, setBaseFontSize } = useSettings();
@@ -22,24 +24,29 @@ export function Navbar() {
   const [unsavedBaseFontSize, setUnsavedBaseFontSize] = useState<number>(baseFontSize);
 
   const handleSettingsSave = () => {
-    if (baseFontSize === unsavedBaseFontSize) {
+    const validatedBaseFontSize = validateBaseFontSize(unsavedBaseFontSize.toString());
+
+    if (!validatedBaseFontSize) {
+      toast.error('Invalid base font size', {
+        description: `Please enter a valid number greater than ${DEFAULT_BASE_FONT_SIZE_MIN}px and less than ${DEFAULT_BASE_FONT_SIZE_MAX}px `,
+        duration: 2000,
+      });
+
+      return;
+    }
+
+    if (validatedBaseFontSize === baseFontSize) {
       setIsSheetOpen(false);
       return;
     }
 
-    if (!isNaN(unsavedBaseFontSize) && unsavedBaseFontSize > 0) {
-      setBaseFontSize(unsavedBaseFontSize);
-      toast.success('Settings updated', {
-        description: `Base font size set to ${unsavedBaseFontSize}px`,
-        duration: 2000,
-      });
-      setIsSheetOpen(false);
-    } else {
-      toast.error('Invalid base font size', {
-        description: 'Please enter a valid number greater than 0',
-        duration: 2000,
-      });
-    }
+    setBaseFontSize(validatedBaseFontSize);
+    setIsSheetOpen(false);
+
+    toast.success('Settings updated', {
+      description: `Base font size set to ${validatedBaseFontSize}px`,
+      duration: 2000,
+    });
   };
 
   return (
