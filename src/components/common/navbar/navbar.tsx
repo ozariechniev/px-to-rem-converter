@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Save, Settings } from 'lucide-react';
 import { toast } from 'sonner';
-import { BaseFontSizeSwitcher, ThemeSwitcher } from '@/components/common/navbar';
+import { BaseFontSizeSwitcher, PresetSwitcher, ThemeSwitcher } from '@/components/common/navbar';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -19,32 +19,43 @@ import { DEFAULT_BASE_FONT_SIZE_MAX, DEFAULT_BASE_FONT_SIZE_MIN } from '@/lib/co
 import { validateBaseFontSize } from '@/lib/validator';
 
 export function Navbar() {
-  const { baseFontSize, setBaseFontSize } = useSettings();
+  const { baseFontSize, setBaseFontSize, presets, setPresets } = useSettings();
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
   const [unsavedBaseFontSize, setUnsavedBaseFontSize] = useState<number>(baseFontSize);
+  const [unsavedPresets, setUnsavedPresets] = useState<number[]>(presets);
 
   const handleSettingsSave = () => {
     const validatedBaseFontSize = validateBaseFontSize(unsavedBaseFontSize.toString());
 
     if (!validatedBaseFontSize) {
       toast.error('Invalid base font size', {
-        description: `Please enter a valid number greater than ${DEFAULT_BASE_FONT_SIZE_MIN}px and less than ${DEFAULT_BASE_FONT_SIZE_MAX}px `,
+        description: `Please enter a valid number greater than ${DEFAULT_BASE_FONT_SIZE_MIN}px and less than ${DEFAULT_BASE_FONT_SIZE_MAX}px`,
         duration: 2000,
       });
 
       return;
     }
 
-    if (validatedBaseFontSize === baseFontSize) {
+    const hasBaseFontSizeChanged = validatedBaseFontSize !== baseFontSize;
+    const hasPresetsChanged = JSON.stringify(unsavedPresets) !== JSON.stringify(presets);
+
+    if (!hasBaseFontSizeChanged && !hasPresetsChanged) {
       setIsSheetOpen(false);
       return;
     }
 
-    setBaseFontSize(validatedBaseFontSize);
+    if (hasBaseFontSizeChanged) {
+      setBaseFontSize(validatedBaseFontSize);
+    }
+
+    if (hasPresetsChanged) {
+      setPresets(unsavedPresets);
+    }
+
     setIsSheetOpen(false);
 
     toast.success('Settings updated', {
-      description: `Base font size set to ${validatedBaseFontSize}px`,
+      description: `Settings have been saved successfully`,
       duration: 2000,
     });
   };
@@ -69,6 +80,7 @@ export function Navbar() {
               unsavedBaseFontSize={unsavedBaseFontSize}
               setUnsavedBaseFontSize={setUnsavedBaseFontSize}
             />
+            <PresetSwitcher unsavedPresets={unsavedPresets} setUnsavedPresets={setUnsavedPresets} />
           </div>
           <SheetFooter>
             <Button className="cursor-pointer" size="lg" onClick={handleSettingsSave} aria-label="Save settings">
