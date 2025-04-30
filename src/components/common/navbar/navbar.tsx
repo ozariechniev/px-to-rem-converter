@@ -57,7 +57,7 @@ export function Navbar() {
     }
 
     if (hasPresetsChanged) {
-      setPresets(validatedPresets);
+      setPresets(validatedPresets?.length === 0 ? null : validatedPresets);
     }
 
     setIsSheetOpen(false);
