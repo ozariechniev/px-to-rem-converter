@@ -5,6 +5,7 @@ import { CircleHelp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { DEFAULT_BASE_FONT_SIZE_MAX, DEFAULT_BASE_FONT_SIZE_MIN, DEFAULT_BASE_FONT_SIZE_STEP } from '@/lib/constants';
 
 type BaseFontSizeSwitcherProps = {
   unsavedBaseFontSize: number;
@@ -13,6 +14,10 @@ type BaseFontSizeSwitcherProps = {
 
 export function BaseFontSizeSwitcher({ unsavedBaseFontSize, setUnsavedBaseFontSize }: BaseFontSizeSwitcherProps) {
   const [helpOpen, setHelpOpen] = useState<boolean>(false);
+
+  const handleBaseFontSizeChange = (value: string) => {
+    return setUnsavedBaseFontSize(Number(value));
+  };
 
   return (
     <div className="rounded-sm border p-4">
@@ -33,9 +38,11 @@ export function BaseFontSizeSwitcher({ unsavedBaseFontSize, setUnsavedBaseFontSi
         <Input
           id="base-font-size"
           type="number"
+          min={DEFAULT_BASE_FONT_SIZE_MIN}
+          max={DEFAULT_BASE_FONT_SIZE_MAX}
+          step={DEFAULT_BASE_FONT_SIZE_STEP}
           value={unsavedBaseFontSize}
-          onChange={(e) => setUnsavedBaseFontSize(Number(e.target.value))}
-          min={1}
+          onChange={(e) => handleBaseFontSizeChange(e.target.value)}
         />
       </div>
     </div>
