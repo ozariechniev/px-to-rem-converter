@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || ''),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'),
   alternates: {
     canonical: '/',
   },
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: 'PX TO REM Converter',
     description:
       'Free online PX to REM converter tool for web developers. Instantly convert pixel values to rem units for responsive and accessible web design. Perfect for CSS developers and designers.',
-    url: process.env.NEXT_PUBLIC_URL || '',
+    url: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
     siteName: 'PX TO REM',
     locale: 'en_US',
     type: 'website',
