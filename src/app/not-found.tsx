@@ -1,5 +1,10 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { GridBackground } from '@/components/common/background';
+
+export const metadata: Metadata = {
+  title: '404 - Page Not Found',
+};
 
 export default function NotFound() {
   return (
