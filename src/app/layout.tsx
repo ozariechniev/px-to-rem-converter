@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import { Footer } from '@/components/common/footer';
 import { Header } from '@/components/common/header';
 import { Toaster } from '@/components/ui/sonner';
@@ -34,6 +35,7 @@ export default function RootLayout({
           <Suspense>
             <Header />
             {children}
+            <Analytics />
             <Footer />
           </Suspense>
           <Toaster richColors />
