@@ -19,8 +19,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'PX TO REM',
-  description: 'Convert PX to REM with ease',
+  title: {
+    default: 'PX TO REM',
+    template: '%s | PX TO REM Converter',
+  },
+  description:
+    'Convert PX to REM with ease. A free online tool for web developers to quickly convert pixel values to rem units for responsive web design.',
+  keywords: ['px to rem', 'pixel converter', 'rem converter', 'css units', 'responsive design', 'web development'],
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
