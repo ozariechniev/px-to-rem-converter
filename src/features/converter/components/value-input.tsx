@@ -27,7 +27,13 @@ export function ValueInput({ id, label, value, onChange, placeholder, unit }: Va
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
-        <Button variant="outline" size="icon" onClick={() => copyToClipboard(`${value}${unit}`)} disabled={!value}>
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => copyToClipboard(`${value}${unit}`)}
+          disabled={!value}
+          aria-label={`Copy ${value}${unit} to clipboard`}
+        >
           <Copy className="h-4 w-4" />
         </Button>
       </div>

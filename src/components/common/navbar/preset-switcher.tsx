@@ -85,6 +85,7 @@ export function PresetSwitcher({ setUnsavedPresets, unsavedPresets }: PresetSwit
                 size="sm"
                 className="text-muted-foreground hover:text-destructive w-full"
                 onClick={handleClearPresets}
+                aria-label="Clear all presets"
               >
                 <Trash2 className="mr-2 size-4" />
                 Clear all
@@ -98,7 +99,13 @@ export function PresetSwitcher({ setUnsavedPresets, unsavedPresets }: PresetSwit
                 className="bg-muted text-muted-foreground flex items-center gap-1 rounded-md border px-2 py-1 text-sm"
               >
                 {preset}px
-                <Button variant="ghost" size="icon" className="size-4 p-0" onClick={() => handleRemovePreset(preset)}>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="size-4 p-0"
+                  onClick={() => handleRemovePreset(preset)}
+                  aria-label={`Remove ${preset}px preset`}
+                >
                   <X className="size-3" />
                 </Button>
               </div>
