@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import { Save, Settings } from 'lucide-react';
 import { toast } from 'sonner';
-import { BaseFontSizeSwitcher, PresetSwitcher, ThemeSwitcher } from '@/components/common/navbar';
+import { BaseFontSizeSwitcher } from '@/components/common/navbar/base-font-size-switcher';
+import { PresetSwitcher } from '@/components/common/navbar/preset-switcher';
+import { ThemeSwitcher } from '@/components/common/navbar/theme-switcher';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,

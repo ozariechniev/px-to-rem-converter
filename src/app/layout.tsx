@@ -2,10 +2,10 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
-import { Footer } from '@/components/common/footer';
-import { Header } from '@/components/common/header';
+import { Footer } from '@/components/common/footer/footer';
+import { Header } from '@/components/common/header/header';
 import { Toaster } from '@/components/ui/sonner';
-import { RootProvider } from '@/providers';
+import { RootProvider } from '@/providers/root-provider';
 import '@/styles/globals.css';
 
 const geistSans = Geist({

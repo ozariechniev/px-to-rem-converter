@@ -1,5 +1,5 @@
 import { Github } from 'lucide-react';
-import { Logo } from '@/components/common/logo';
+import { Logo } from '@/components/common/logo/logo';
 import { Button } from '@/components/ui/button';
 import { GITHUB_PROJECT_URL } from '@/lib/constants';
 

@@ -1,5 +1,5 @@
-import { GridBackground } from '@/components/common/background';
-import { Converter } from '@/features/converter';
+import { GridBackground } from '@/components/common/background/grid-background';
+import { Converter } from '@/features/converter/converter';
 
 export default function Home() {
   return (

@@ -1,5 +1,5 @@
-import { Logo } from '@/components/common/logo';
-import { Navbar } from '@/components/common/navbar';
+import { Logo } from '@/components/common/logo/logo';
+import { Navbar } from '@/components/common/navbar/navbar';
 
 export function Header() {
   return (
