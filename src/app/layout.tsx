@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   description:
     'Free online PX to REM converter tool for web developers. Instantly convert pixel values to rem units for responsive and accessible web design. Perfect for CSS developers and designers.',
   keywords: ['px to rem', 'pixel converter', 'rem converter', 'css units', 'responsive design', 'web development'],
-  authors: [{ name: 'Oleksandr Zariechniev' }],
-  creator: 'Oleksandr Zariechniev',
-  publisher: 'Oleksandr Zariechniev',
+  authors: [{ name: process.env.NEXT_PUBLIC_AUTHOR_NAME || '' }],
+  creator: process.env.NEXT_PUBLIC_AUTHOR_NAME || '',
+  publisher: process.env.NEXT_PUBLIC_AUTHOR_NAME || '',
   formatDetection: {
     email: false,
     address: false,
